@@ -1,0 +1,9 @@
+frac_lo=0.05 target=48 hysteresis param=0.7500000000000001 done
+frac_lo=0.05 target=48 topk param=2 done
+frac_lo=0.05 target=48 gumbel_topk param=2 done
+frac_lo=0.05 target=64 hysteresis param=0.31000000000000005 done
+frac_lo=0.05 target=64 topk param=5 done
+frac_lo=0.05 target=64 gumbel_topk param=5 done
+frac_lo=0.05 target=80 hysteresis param=0.3 done
+frac_lo=0.05 target=80 topk param=8 done
+frac_lo=0.05 target=80 gumbel_topk param=7 done

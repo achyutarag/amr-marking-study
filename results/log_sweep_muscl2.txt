@@ -1,0 +1,22 @@
+uniform done -> results/sweep_muscl2_nu0.01.csv
+target 48 hysteresis param=0.7500000000000001 done
+target 48 topk param=2 done
+target 48 gumbel_topk param=2 done
+target 64 hysteresis param=0.31000000000000005 done
+target 64 topk param=5 done
+target 64 gumbel_topk param=5 done
+target 96 hysteresis param=0.27999999999999997 done
+target 96 topk param=9 done
+target 96 gumbel_topk param=8 done
+target 128 hysteresis param=0.24 done
+target 128 topk param=11 done
+target 128 gumbel_topk param=9 done
+target 160 hysteresis param=0.23 done
+target 160 topk param=14 done
+target 160 gumbel_topk param=13 done
+target 192 hysteresis param=0.19 done
+target 192 topk param=18 done
+target 192 gumbel_topk param=17 done
+target 256 hysteresis param=0.09000000000000001 done
+target 256 topk param=23 done
+target 256 gumbel_topk param=22 done

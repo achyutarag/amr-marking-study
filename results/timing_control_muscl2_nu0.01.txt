@@ -1,0 +1,20 @@
+scheme=muscl2 nu=0.01  gate opens at t_g=0.105  final front at x=0.6500
+marker                 arm        early cells   err@t_g final cells              L2 error     shock    smooth cell updates
+topk K=11              A base              32 1.183e-02       130.0 5.3850e-03±0.0e+00 4.869e-03 2.300e-03        41776
+topk K=11              C all              256 2.086e-04       129.0 3.4048e-03±0.0e+00 3.208e-03 1.141e-03       131178
+topk K=11              D front            116 4.416e-03       129.0 4.1755e-03±0.0e+00 3.608e-03 2.102e-03        82178
+topk K=11              E away             116 1.111e-02       130.0 5.0776e-03±0.0e+00 4.670e-03 1.993e-03        81928
+topk K=11              B ungated            -         -       213.0 3.3048e-03±0.0e+00 2.912e-03 1.562e-03       120783
+
+hysteresis frac_hi=0.24 A base              32 1.183e-02       126.0 4.7262e-03±0.0e+00 4.321e-03 1.916e-03        65910
+hysteresis frac_hi=0.24 C all              256 2.086e-04       125.0 3.3120e-03±0.0e+00 3.153e-03 1.014e-03       155568
+hysteresis frac_hi=0.24 D front            116 4.416e-03       126.0 3.5645e-03±0.0e+00 3.094e-03 1.769e-03       106538
+hysteresis frac_hi=0.24 E away             116 1.111e-02       126.0 4.3868e-03±0.0e+00 4.095e-03 1.572e-03       106462
+hysteresis frac_hi=0.24 B ungated            -         -       189.0 2.1527e-03±0.0e+00 1.890e-03 1.031e-03       185363
+
+gumbel_topk K=9        A base              32 1.183e-02       113.6 6.2186e-03±2.2e-04 5.639e-03 2.619e-03        35686
+gumbel_topk K=9        C all              256 2.086e-04       113.4 4.2234e-03±4.6e-04 3.933e-03 1.533e-03       123954
+gumbel_topk K=9        D front            116 4.416e-03       115.7 4.8756e-03±3.3e-04 4.281e-03 2.328e-03        76398
+gumbel_topk K=9        E away             116 1.111e-02       113.7 5.7803e-03±3.3e-04 5.294e-03 2.316e-03        75579
+gumbel_topk K=9        B ungated            -         -       181.7 3.4409e-03±2.5e-04 2.991e-03 1.696e-03       102405
+
