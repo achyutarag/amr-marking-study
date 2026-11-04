@@ -1,4 +1,4 @@
-# AMR marking strategies for viscous Burgers (ICAMCDS 2026)
+# AMR marking strategies for viscous Burgers 
 
 Code and results for a controlled comparison of AMR marking strategies
 (threshold, deterministic top-K, Gumbel top-K) on the 1D viscous Burgers
