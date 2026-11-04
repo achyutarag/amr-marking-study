@@ -1,0 +1,37 @@
+\begin{tabular}{llrrrr}
+\toprule
+Target & Method & Cells & $L^2$ error ($\times10^{-3}$) & Work ($\times10^{3}$) & Turnover \\
+\midrule
+\multicolumn{6}{l}{\emph{Second-order scheme (MUSCL, SSP-RK2)}} \\
+64 & Threshold & 53 & 7.47 & 16.6 & 0.21 (4) \\
+ & Top-$K$ & 65 & 7.25 & 19.2 & 0.23 (5) \\
+ & Gumbel top-$K$ & 68 & 7.44 $\pm$ 0.54 & 23.4 & 0.25 (6) \\
+ & Uniform & 64 & 19.94 & 4.4 & -- \\
+\addlinespace
+128 & Threshold & 126 & 4.73 & 65.9 & 0.11 (10) \\
+ & Top-$K$ & 130 & 5.39 & 41.8 & 0.16 (7) \\
+ & Gumbel top-$K$ & 112 & 6.14 $\pm$ 0.33 & 35.4 & 0.22 (7) \\
+ & Uniform & 128 & 5.98 & 31.5 & -- \\
+\addlinespace
+192 & Threshold & 196 & 4.42 & 109.8 & 0.10 (11) \\
+ & Top-$K$ & 195 & 5.07 & 61.2 & 0.32 (7) \\
+ & Gumbel top-$K$ & 195 & 4.74 $\pm$ 0.29 & 64.8 & 0.28 (8) \\
+ & Uniform & 192 & 2.80 & 106.2 & -- \\
+\addlinespace
+\multicolumn{6}{l}{\emph{First-order scheme (Rusanov, forward Euler)}} \\
+64 & Threshold & 56 & 42.80 & 18.9 & 0.24 (3) \\
+ & Top-$K$ & 64 & 42.93 & 15.4 & 0.29 (2) \\
+ & Gumbel top-$K$ & 62 & 43.96 $\pm$ 0.80 & 19.5 & 0.30 (4) \\
+ & Uniform & 64 & 51.25 & 4.4 & -- \\
+\addlinespace
+128 & Threshold & 129 & 31.57 & 60.9 & 0.10 (9) \\
+ & Top-$K$ & 125 & 37.06 & 38.2 & 0.19 (5) \\
+ & Gumbel top-$K$ & 137 & 36.23 $\pm$ 0.55 & 40.0 & 0.25 (6) \\
+ & Uniform & 128 & 26.57 & 31.5 & -- \\
+\addlinespace
+192 & Threshold & 193 & 28.78 & 102.5 & 0.09 (10) \\
+ & Top-$K$ & 180 & 32.49 & 53.3 & 0.37 (5) \\
+ & Gumbel top-$K$ & 189 & 33.14 $\pm$ 0.58 & 56.9 & 0.27 (7) \\
+ & Uniform & 192 & 17.72 & 106.2 & -- \\
+\bottomrule
+\end{tabular}

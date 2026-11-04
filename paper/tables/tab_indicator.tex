@@ -1,0 +1,26 @@
+\begin{tabular}{llrrrrrrr}
+\toprule
+Target & Indicator / method & Cells & $L^2$ ($\times10^{-3}$) & Work ($\times10^{3}$) & Steps & Refined/merged & Regrids & Turnover \\
+\midrule
+48 & gradient, Threshold & 47 & 10.49 & 16.4 & 387 & 18/3 & 10.0 & 0.25 (5) \\
+ & gradient, Top-$K$ & 51 & 9.08 & 19.9 & 461 & 22/3 & 11.0 & 0.25 (7) \\
+ & gradient, Gumbel top-$K$ & 50 & 10.06 $\pm$ 0.86 & 20.7 & 468 & 24/6 & 11.9 & 0.26 (8) \\
+ & curvature, Threshold & 50 & 6.45 & 15.5 & 304 & 26/8 & 9.0 & 0.25 (2) \\
+ & curvature, Top-$K$ & 51 & 7.66 & 15.9 & 350 & 22/3 & 11.0 & 0.33 (4) \\
+ & curvature, Gumbel top-$K$ & 49 & 8.88 $\pm$ 0.70 & 13.6 & 305 & 21/4 & 10.5 & 0.44 (3) \\
+\addlinespace
+64 & gradient, Threshold & 53 & 7.47 & 16.6 & 341 & 28/7 & 7.0 & 0.21 (4) \\
+ & gradient, Top-$K$ & 65 & 7.25 & 19.2 & 378 & 40/7 & 8.0 & 0.23 (5) \\
+ & gradient, Gumbel top-$K$ & 70 & 7.56 $\pm$ 0.58 & 23.1 & 431 & 45/8 & 9.0 & 0.23 (6) \\
+ & curvature, Threshold & 64 & 4.60 & 26.6 & 415 & 42/10 & 4.0 & 0.38 (1) \\
+ & curvature, Top-$K$ & 63 & 5.33 & 19.5 & 341 & 36/5 & 4.0 & 0.46 (1) \\
+ & curvature, Gumbel top-$K$ & 58 & 5.32 $\pm$ 0.57 & 26.1 & 461 & 41/15 & 5.9 & 0.51 (3) \\
+\addlinespace
+80 & gradient, Threshold & 80 & 6.57 & 26.0 & 378 & 57/9 & 9.0 & 0.18 (6) \\
+ & gradient, Top-$K$ & 80 & 6.29 & 22.5 & 387 & 56/8 & 7.0 & 0.26 (4) \\
+ & gradient, Gumbel top-$K$ & 87 & 6.69 $\pm$ 0.57 & 25.4 & 409 & 63/8 & 9.0 & 0.20 (6) \\
+ & curvature, Threshold & 75 & 3.55 & 61.9 & 581 & 263/220 & 14.0 & 0.34 (11) \\
+ & curvature, Top-$K$ & 80 & 3.55 & 60.4 & 581 & 378/330 & 14.0 & 0.37 (11) \\
+ & curvature, Gumbel top-$K$ & 79 & 3.78 $\pm$ 0.08 & 47.2 & 532 & 229/182 & 12.7 & 0.25 (10) \\
+\bottomrule
+\end{tabular}

@@ -53,9 +53,11 @@ would equalize the regrid schedule. We did not run that variant.
 **For Section IV (Results), after the indicator accuracy results:**
 
 > The accuracy gain of the curvature indicator comes with a cost that depends
-> on the budget. At about 48 and 64 final cells (3 levels), curvature-based
-> marking used similar or less work than gradient-based marking
-> (1.4-2.7 x 10^4 vs 1.6-2.3 x 10^4 cell updates). At about 80 cells it used
+> on the budget. At about 48 final cells (3 levels), curvature-based marking
+> used less work than gradient-based marking (1.4-1.6 x 10^4 vs
+> 1.6-2.1 x 10^4 cell updates); at about 64 cells it used 1.0-1.6x as much
+> (the 1.6x is threshold marking, whose gradient run ended at only 53 cells).
+> At about 80 cells it used
 > 1.8-2.7x the work of gradient marking (4.7-6.2 x 10^4 vs 2.3-2.6 x 10^4). Here
 > the curvature indicator concentrates refinement so narrowly that the target
 > budget exceeds what the front can absorb at the depth cap: cells refined at
@@ -88,12 +90,12 @@ time-averaged cells = `cell_updates / n_steps`; uniform 256 steps from
 
 > To compare AMR and uniform refinement at equal work, we ran uniform grids at
 > every $n = 32, 36, \ldots, 320$. Each AMR configuration's mean work therefore
-> lies between two actual uniform runs whose work differs by 3-7%. Table IV
+> lies between two actual uniform runs whose work differs by 4-13%. Table IV
 > reports both neighbouring uniform runs and the uniform error at the AMR work
 > under four rules: log-log linear interpolation between the neighbours,
 > linear interpolation, the nearest neighbour, and a conservative rule that
 > compares against the neighbour with *more* work than the AMR run. Because the
-> neighbours are close, the four rules agree to within about 5%. We claim an
+> neighbours are close, the four rules agree to within 8%. We claim an
 > AMR advantage only where it holds under the conservative rule.
 
 

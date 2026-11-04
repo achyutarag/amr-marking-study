@@ -1,0 +1,27 @@
+\begin{tabular}{llrrrrrrr}
+\toprule
+Target & Indicator / method & Work ($\times10^{3}$) & AMR $L^2$ & \multicolumn{2}{c}{Uniform below} & \multicolumn{2}{c}{Uniform above} & Ratio \\
+ & & & ($\times10^{-3}$) & $n$ & $L^2$ & $n$ & $L^2$ & log-log / cons. \\
+\midrule
+48 & gradient, Threshold & 16.4 & 10.49 & 100 & 9.33 & 104 & 8.70 & 0.85 / \textbf{0.83} \\
+ & gradient, Top-$K$ & 19.9 & 9.08 & 108 & 8.14 & 112 & 7.61 & 0.87 / \textbf{0.84} \\
+ & gradient, Gumbel top-$K$ & 20.7 & 10.06 [0\%] & 108 & 8.14 & 112 & 7.61 & 0.77 / \textbf{0.76} \\
+ & curvature, Threshold & 15.5 & 6.45 & 100 & 9.33 & 104 & 8.70 & 1.43 / \textbf{1.35} \\
+ & curvature, Top-$K$ & 15.9 & 7.66 & 100 & 9.33 & 104 & 8.70 & 1.18 / \textbf{1.13} \\
+ & curvature, Gumbel top-$K$ & 13.6 & 8.88 [70\%] & 96 & 10.02 & 100 & 9.33 & 1.12 / \textbf{1.05} \\
+\addlinespace
+64 & gradient, Threshold & 16.6 & 7.47 & 100 & 9.33 & 104 & 8.70 & 1.18 / \textbf{1.16} \\
+ & gradient, Top-$K$ & 19.2 & 7.25 & 108 & 8.14 & 112 & 7.61 & 1.11 / \textbf{1.05} \\
+ & gradient, Gumbel top-$K$ & 23.1 & 7.56 [30\%] & 112 & 7.61 & 116 & 7.15 & 0.95 / \textbf{0.95} \\
+ & curvature, Threshold & 26.6 & 4.60 & 120 & 6.73 & 124 & 6.33 & 1.44 / \textbf{1.38} \\
+ & curvature, Top-$K$ & 19.5 & 5.33 & 108 & 8.14 & 112 & 7.61 & 1.50 / \textbf{1.43} \\
+ & curvature, Gumbel top-$K$ & 26.1 & 5.32 [100\%] & 120 & 6.73 & 124 & 6.33 & 1.26 / \textbf{1.19} \\
+\addlinespace
+80 & gradient, Threshold & 26.0 & 6.57 & 120 & 6.73 & 124 & 6.33 & 1.02 / \textbf{0.96} \\
+ & gradient, Top-$K$ & 22.5 & 6.29 & 112 & 7.61 & 116 & 7.15 & 1.16 / \textbf{1.14} \\
+ & gradient, Gumbel top-$K$ & 25.4 & 6.69 [50\%] & 116 & 7.15 & 120 & 6.73 & 1.02 / \textbf{1.01} \\
+ & curvature, Threshold & 61.9 & 3.55 & 160 & 3.95 & 164 & 3.77 & 1.11 / \textbf{1.06} \\
+ & curvature, Top-$K$ & 60.4 & 3.55 & 156 & 4.14 & 160 & 3.95 & 1.13 / \textbf{1.11} \\
+ & curvature, Gumbel top-$K$ & 47.2 & 3.78 [100\%] & 144 & 4.81 & 148 & 4.57 & 1.23 / \textbf{1.21} \\
+\bottomrule
+\end{tabular}
