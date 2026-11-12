@@ -19,19 +19,20 @@ Irvine, CA, USA\\
 \maketitle
 
 \begin{abstract}
-We report on verifying a small research code (about 600 lines of Python)
-written to compare three rules for choosing which cells an adaptive mesh
-refines. Before any scientific claim was made, the code and the experimental
-design contained eleven problems: two implementation defects, two
+In a small adaptive-mesh research code, one configuration had 3.3$\times$
+lower error than a uniform grid with the same number of cells, and
+2.2--2.3$\times$ higher error than the uniform grids that cost the same
+amount of computation. The cell-count comparison was the one the study first
+used. We report eleven problems found while verifying this code (about 600
+lines of Python) before publication: two implementation defects, two
 metric-definition defects, five design confounds and two tooling errors.
-Every problem except the two tooling errors produced output that looked
-plausible, and the five confounds each changed a conclusion. The defects were exposed by invariant
-checks on mesh operations, convergence-order tests, and tracing every
-reported number to a result file; the confounds were exposed by controlled
-re-runs. The question the study set out to answer turned out to be the
-smallest effect in the problem. We describe each problem, how it was
-detected, and its measured effect, and draw lessons for testing research
-software whose outputs have no exact oracle.
+Nine of the eleven produced output that looked plausible. The defects were
+exposed by invariant checks on mesh operations, convergence-order tests,
+and tracing every reported number to a result file; the confounds were
+exposed by controlled re-runs. For each problem we give how it was detected
+and its measured effect, with a script that reruns the headline comparison,
+and draw lessons for testing research software whose outputs have no exact
+oracle.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -98,21 +99,58 @@ ID & Type & What was wrong & Plausible & Detected by & Measured effect \\
 D1 & D & Top-$K$ chose from all cells, then dropped those at the depth cap & yes & invariant: refinements $=\min(K,\text{eligible})$ & $K{=}25$: 25,25,25,21,20,21,21,20 per event (fixed: 25 each) \\
 D2 & D & Coarsening merged any adjacent pair, not siblings & yes & invariants: width $\le$ base; dyadic mesh & largest cell $1.5\times$ base; 10.6\% of cells non-dyadic (fixed: $1.0\times$, 0\%) \\
 M1 & M & Turnover averaged over empty$\to$empty and first-appearance pairs & yes & reviewing the definition & changed in all 154 adaptive runs per scheme; threshold mean 0.21$\to$0.15 \\
-M2 & M & Budget search allowed refine threshold below coarsen threshold & no visible error & parameter audit & one configuration affected \\
+M2 & M & Budget search allowed refine threshold below coarsen threshold & yes & parameter audit & one configuration affected \\
 C1 & C & First-order scheme's numerical viscosity ($\approx$0.02) exceeded physical $\nu{=}0.01$ & yes & analysis; second-order rerun & scheme changed error 5.7--7.0$\times$ vs.\ 3--30\% between rules \\
-C2 & C & Rules compared at different final cell counts & yes & budget matching & residual mismatch (112 vs.\ 126 cells at target 128) \\
-C3 & C & Cost measured by final cell count; global $\Delta t \propto h_{\min}^2$ & yes & work tracking; dense uniform sweep & 5-level wins at matched cells became losses at matched work \\
+C2 & C & Rules compared at different final cell counts & yes & budget matching & matching left a residual gap (112 vs.\ 126 cells at target 128) \\
+C3 & C & Cost measured by final cell count; global $\Delta t \propto h_{\min}^2$ & yes & work tracking; dense uniform sweep & 5-level wins at matched cells became losses at matched work (Table~\ref{tab:reversal}) \\
 C4 & C & Refinement began after the front had started forming & yes & timing control & early refinement closed 61--82\% of the error gap \\
-C5 & C & Gradient indicator refined smooth steep ramps & yes & indicator profiling & 103 of 126 refined cells in smooth regions \\
+C5 & C & Gradient indicator refined smooth steep ramps & yes & indicator profiling & 103 of 126 refined cells in smooth regions; curvature indicator cut error 12--46\% \\
 T1 & T & Syntax error in an experiment script & no (failed loudly) & run failed & none \\
-T2 & T & Two experiments wrote the same output file & would overwrite silently & noticed before rerun & none \\
+T2 & T & Two experiments wrote the same output file & n/a (caught before it ran) & code review & none \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
 Table~\ref{tab:log} lists all eleven problems. Defect effects (D1, D2)
 were measured by running the original and fixed code with identical
-settings; the script is in the repository. We describe three in detail.
+settings (\texttt{defect\_effects.py}). Three of the confounds changed a
+conclusion of the study: C1 and C3 reversed whether adaptive refinement beat
+uniform refinement, and C5 changed which indicator to use and produced the
+study's only configurations that beat uniform refinement at equal work. C2
+did not reverse a conclusion; it limits how precisely the rules can be
+compared, and C4 showed that refinement timing outweighed the choice of
+rule. We describe four problems in detail, starting with the reversal.
+
+\begin{table}[t]
+\caption{One adaptive run vs.\ uniform grids (second order, curvature
+indicator, 5 levels, top-$K$, $K{=}13$). Work = total cell updates.
+Reproduced by \texttt{sers/headline.py}.}
+\label{tab:reversal}
+\centering
+\small
+\begin{tabular}{@{}l r r r r@{}}
+\toprule
+Run & Cells & Steps & Work & $L_2$ error \\
+\midrule
+Adaptive & 94 & 3628 & 340{,}509 & $3.00\times10^{-3}$ \\
+Uniform, same cells & 96 & 139 & 13{,}344 & $1.00\times10^{-2}$ \\
+Uniform, less work & 280 & 1177 & 329{,}560 & $1.35\times10^{-3}$ \\
+Uniform, more work & 284 & 1210 & 343{,}640 & $1.31\times10^{-3}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{C3: a comparison that reversed with the cost measure}
+Table~\ref{tab:reversal} shows one adaptive run beside three uniform grids.
+Compared with the uniform grid of about the same cell count, the adaptive
+run has 3.3$\times$ lower error. But its smallest cells, $1/1024$ wide,
+force a global time step of order $h_{\min}^2/(2\nu)$ on every cell, so it
+took 3628 steps against 139 and did 25$\times$ the work. The two uniform
+grids whose work brackets the adaptive run's have 2.2--2.3$\times$
+lower error. Judged by cell count the adaptive run wins; judged by work it
+loses. Every 5-level configuration in the study lost at matched work
+(error ratios 0.21--0.83 under the most conservative rule, which compares
+against the bracketing grid with \emph{more} work).
 
 \subsection{D1: a budget parameter that did not set the budget}
 Top-$K$ refines the $K$ highest-scoring cells, so $K$ is meant to control
@@ -125,22 +163,13 @@ comparing refinements per event with $\min(K,\text{eligible})$. Because the
 study's comparisons depended on controlling budgets, this defect undermined
 the experimental control rather than the numerics.
 
-\subsection{C1 and C3: confounds that changed the answer}
-Some of the most consequential problems were not bugs. The first-order
-scheme adds numerical viscosity of about $\alpha h/2$, roughly 0.02 on the
-base cells, twice the physical viscosity. Coarse regions therefore solved a
-different equation, and at matched work a uniform grid beat every adaptive
-configuration (21 of 21). With a second-order scheme the error fell by
-5.7--7.0$\times$, while the three rules differed by only 3--30\%.
-
-Cost was a second confound. Matching rules on final cell count looked fair,
-but the global time step is limited by $h_{\min}^2/(2\nu)$ once cells are
-small, so each extra level of refinement can multiply the number of steps
-for \emph{every} cell by up to four. Final cell count also ignores how many
-cells existed during the run. Comparing at equal work, measured as total
-cell updates against uniform runs that bracket each adaptive run's work,
-turned five-level configurations that won at matched cell count into
-losses.
+\subsection{C1: a scheme that hid the question}
+The first-order scheme adds numerical viscosity of about $\alpha h/2$,
+roughly 0.02 on the base cells, twice the physical viscosity. Coarse regions
+therefore solved a different equation, and at matched work a uniform grid
+beat every first-order adaptive configuration (21 of 21). With a
+second-order scheme the error fell by 5.7--7.0$\times$, while the three
+rules differed by only 3--30\%.
 
 \subsection{M1: a metric defined by convention}
 Grid turnover, the Jaccard distance between finest-level regions at
@@ -175,6 +204,19 @@ study's original question turned out to be the smallest effect.
 \textbf{AI assistance.} \todo{Describe accurately: which checks the AI
 assistant proposed, which errors it introduced (e.g., T1, T2 if accurate),
 and what the author verified by hand. Keep only what you can support.}
+
+\section{Reproducing the Results}
+All code and results are at
+\url{https://github.com/achyutarag/amr-marking-study}, tag
+\texttt{sers-2027-v1}. \texttt{python sers/headline.py}
+regenerates Table~\ref{tab:reversal} from scratch in a few minutes and
+writes \texttt{results/sers\_headline.txt}; the same values appear in
+\texttt{results/ablation\_muscl2\_nu0.01\_curvature\_L5\_flo0.05.csv} and
+\texttt{results/uniform\_dense\_muscl2\_nu0.01.csv}. \texttt{python
+defect\_effects.py} reproduces the D1, D2 and M1 measurements in
+Table~\ref{tab:log}, and \texttt{check\_mesh.py} and
+\texttt{check\_scheme.py} run the invariant and convergence checks.
+Requirements: Python~3, NumPy, pandas.
 
 \section{Threats to Validity}
 This is a single case study of one small code, written up after the fact by

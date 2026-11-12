@@ -1,0 +1,5 @@
+run                   cells  steps  cell updates   L2 error
+adaptive, 5 levels       94   3628        340509  2.995e-03
+uniform, n=96            96    139         13344  1.002e-02
+uniform, n=280          280   1177        329560  1.351e-03
+uniform, n=284          284   1210        343640  1.314e-03
