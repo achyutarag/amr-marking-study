@@ -58,7 +58,7 @@ lowest error at a given budget.
 
 Our contribution is a sourced log of each problem: what was wrong, whether
 the output looked plausible, what detected it, and its measured effect
-(Table~\ref{tab:log}). The code, the original scripts as received, the
+(Table~\ref{tab:log}). The code, the pre-verification scripts, the
 superseded results and a script that re-measures each defect are public~\cite{repo}.
 
 \section{The Code and How It Was Checked}
@@ -67,9 +67,9 @@ edges. Each cell holds an average $u_i$ updated by flux differences,
 $u_i \leftarrow u_i - \tfrac{\Delta t}{h_i}(F_{i+1/2}-F_{i-1/2})$, so mass
 is conserved by construction. Refinement splits a cell in two; coarsening
 merges two cells with a width-weighted average. A single global time step,
-set by the smallest cell, advances every cell. We received three scripts
-from a collaborator and kept them unchanged in \texttt{original/}; all
-changes were made to copies.
+set by the smallest cell, advances every cell. The author wrote the first
+version of the code; before verification began, its three scripts were
+frozen unchanged in \texttt{original/}, and all changes were made to copies.
 
 Checks were added in three forms. \emph{Invariant checks}
 (\texttt{check\_mesh.py}) assert properties that must hold after every
@@ -227,16 +227,15 @@ Requirements: Python~3, NumPy, pandas.
 
 \section{Threats to Validity}
 This is a single case study of one small code, written up after the fact by
-the people who found the problems, with no comparison group. The order in
-which problems were discovered is not recorded in version control, which
+its own author, with no comparison group or independent reviewer. The order
+in which problems were discovered is not recorded in version control, which
 begins after the fixes, so we make no claims about timing. The effect of D2
-on accuracy was not isolated. Four earlier defects described in the
-original author's code comments were fixed before we received the code; we
-did not verify them and do not count them. The lessons are offered as
+on accuracy was not isolated. Comments in the first version describe four
+defects fixed before it was frozen; no record of them survives, so we do
+not count them. The lessons are offered as
 hypotheses for research codes of similar size, not as general findings.
 
 \section*{Acknowledgment}
-\todo{Collaborator who supplied the original scripts, if they agree; otherwise delete this line.}
 This work was conducted independently, outside any university course or
 funded project. An AI assistant (Claude, Anthropic) was used for code
 changes, analysis and drafting, as described in Section~IV; the author
