@@ -12,9 +12,9 @@
 \title{Plausible but Wrong: What Verification Caught\\in a Small Adaptive-Mesh Research Code}
 
 \author{\IEEEauthorblockN{\todo{Author name}}
-\IEEEauthorblockA{\todo{Department}, University of California, Irvine\\
+\IEEEauthorblockA{Independent Researcher\\
 Irvine, CA, USA\\
-\todo{email}}}
+achyutr@uci.edu}}
 
 \maketitle
 
@@ -47,7 +47,7 @@ retracted because of such errors~\cite{miller2006}. This paper is an
 experience report from one small study in which we found and measured
 eleven such problems before publication.
 
-The study~\cite{amrpreprint} compared three \emph{marking rules} for
+The study~\cite{repo} compared three \emph{marking rules} for
 adaptive mesh refinement (AMR): a relative threshold, deterministic top-$K$,
 and Gumbel top-$K$, a stochastic rule borrowed from machine
 learning~\cite{kool2019}. The code solved the 1D viscous Burgers equation on
@@ -201,9 +201,16 @@ counts only what is visible in the final state can reverse a comparison.
 problems were design confounds, and they mattered more than any bug: the
 study's original question turned out to be the smallest effect.
 
-\textbf{AI assistance.} \todo{Describe accurately: which checks the AI
-assistant proposed, which errors it introduced (e.g., T1, T2 if accurate),
-and what the author verified by hand. Keep only what you can support.}
+\textbf{AI assistance cuts both ways.} The review, fixes, checks and
+measurements in this paper were carried out with an AI coding assistant
+(Claude, by Anthropic, used through Claude Code). It proposed the
+budget-control, coarsening and turnover fixes, wrote the invariant and
+convergence checks and the number audit, and ran the before-and-after
+measurements. It also introduced both tooling errors (T1, T2) while editing
+an experiment script. The same practices that exposed the original defects,
+invariants, reruns and tracing each number to a file, are what made its
+contributions checkable. \todo{Add what you verified yourself, e.g.\ which
+results you reran or inspected by hand.}
 
 \section{Reproducing the Results}
 All code and results are at
@@ -229,8 +236,11 @@ did not verify them and do not count them. The lessons are offered as
 hypotheses for research codes of similar size, not as general findings.
 
 \section*{Acknowledgment}
-\todo{Collaborator who supplied the original scripts, if they agree.}
-\todo{AI-use disclosure following the ICSE 2027 policy.}
+\todo{Collaborator who supplied the original scripts, if they agree; otherwise delete this line.}
+This work was conducted independently, outside any university course or
+funded project. An AI assistant (Claude, Anthropic) was used for code
+changes, analysis and drafting, as described in Section~IV; the author
+directed the work and is responsible for all content.
 
 \begin{thebibliography}{10}
 \bibitem{hatton1994}
@@ -245,10 +255,6 @@ pp.~1219--1232, 2014.
 \bibitem{miller2006}
 G.~Miller, ``A scientist's nightmare: Software problem leads to five
 retractions,'' \emph{Science}, vol.~314, no.~5807, pp.~1856--1857, 2006.
-
-\bibitem{amrpreprint}
-\todo{Author}, ``AMR marking strategies for viscous Burgers,'' arXiv
-preprint \todo{arXiv ID}, 2026.
 
 \bibitem{kool2019}
 W.~Kool, H.~van Hoof, and M.~Welling, ``Stochastic beams and where to find
@@ -266,8 +272,7 @@ pp.~484--512, 1984.
 
 \bibitem{repo}
 \todo{Author}, ``amr-marking-study,'' GitHub repository,
-\url{https://github.com/achyutarag/amr-marking-study}, 2026,
-\todo{Zenodo DOI}.
+\url{https://github.com/achyutarag/amr-marking-study}, tag sers-2027-v1, 2026.
 
 \bibitem{roache1998}
 P.~J. Roache, \emph{Verification and Validation in Computational Science
